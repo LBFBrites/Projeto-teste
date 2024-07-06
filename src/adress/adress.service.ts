@@ -5,16 +5,16 @@ import { ReturnCep } from 'src/dto/return-cep.dto';
 
 
 
+
 @Injectable()
-export class CepService {
-    URL_CEP = 'http://viacep.com.br/ws/{CEP}/json/'
+export class AdressService {
+    URL_CEP = 'https://viacep.com.br/ws'
 
     constructor(private readonly httpService: HttpService) {}
 
     async findAdressByCep(cep: string): Promise<ReturnCep> {
-        return this.httpService.axiosRef.get<ReturnCep>(this.URL_CEP.replace('{CEP}', cep))
+        return this.httpService.axiosRef.get<ReturnCep>(`${this.URL_CEP}/${cep}/json/`)
         .then((result) => {
-            console.log(result);
             if(result.data.error === 'true')
                 throw new NotFoundException('CEP not found')
             return result.data;
@@ -23,4 +23,6 @@ export class CepService {
         });
     }
 
+    
+    
 }

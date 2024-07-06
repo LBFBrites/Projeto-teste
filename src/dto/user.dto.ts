@@ -6,11 +6,19 @@ export class UserDto {
     @ApiProperty()
         email: string;
     @ApiProperty()
-        phone: number;
+        phone: string;
     @ApiProperty()
-        CEP: number;
+        cpf: string;
     @ApiProperty()
-        CPF: number;
+        zipCode: string;
     @ApiProperty()
-        birthDate: Date;
+        birthDate: string;
+       
+    adress?: {
+        localidade?: string;
+        uf?: string;
+        ddd?: string;
+        cep?: string;
+    }
+        
 }

@@ -1,16 +1,28 @@
 import { Injectable } from '@nestjs/common';
-import { User } from 'src/interfaces/user.interface';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { UserDto } from 'src/dto/user.dto';
+import { User } from 'src/schemas/user.schema';
 
 @Injectable()
 export class UsersService {
-    private users: User[] = []
+    constructor(@InjectModel(User.name) private readonly userModel: Model<User>) {}
 
-    findAll(): User[] {
-        return this.users
+    async register(createUserDto: UserDto): Promise<string> {
+        const createdUser = new this.userModel(createUserDto);
+        return (await createdUser.save())._id.toHexString();
+    }
+   
+
+    findAll(): UserDto[] {
+        throw new Error('Method not implemented.');
     }
 
-    create(user: User): User{
-        this.users.push()
-        return user;
-    }
+    
+
+    async findByCpf(cpf: string): Promise<UserDto> {
+        throw new Error('Method not implemented.');
+    
+}
+    
 }
